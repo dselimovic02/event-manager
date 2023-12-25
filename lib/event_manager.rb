@@ -56,15 +56,19 @@ contents.each do |row|
   id = row[0]
   name = row[:first_name]
   
-  # zipcode = clean_zipcode(row[:zipcode])
+  zipcode = clean_zipcode(row[:zipcode])
   
   homephone = clean_homephone(row[:homephone])
+
+  time = Time.strptime(row[:regdate], "%m/%d/%y %H:%M").hour.to_s + "h"
+
+  day = Date.strptime(row[:regdate], "%m/%d/%y").strftime("%A")
   
-  # legislators = legislators_by_zipcode(zipcode)
+  
+  
+  legislators = legislators_by_zipcode(zipcode)
 
-  # form_letter = erb_template.result(binding)
+  form_letter = erb_template.result(binding)
 
-  # save_thank_you_letter(id,form_letter)
-
-  puts "#{id} #{name} #{homephone}"
+  save_thank_you_letter(id,form_letter)
 end
